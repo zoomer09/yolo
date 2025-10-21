@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello miss pmo</title>
+  <style>
+    body { background:#fff0f5; font-family:'Comic Sans MS',sans-serif; text-align:center; margin-top:10%; }
+    input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+    button { padding:10px 20px; border:none; border-radius:8px; background:#ff69b4; color:white; font-size:16px; cursor:pointer; margin-left:10px; }
+  </style>
+</head>
+<body>
+  <h1>Hello miss pmo 💕</h1>
+  <p>Kindly confirm ur name in da box below 👇</p>
+  <input type="text" id="nameBox" placeholder="Enter your name" />
+  <button onclick="nextPage()">Next ➡️</button>
+
+  <script>
+    function nextPage() {
+      const name = document.getElementById('nameBox').value;
+      localStorage.setItem('username', name);
+      window.location.href = 'dob.html';
+    }
+  </script>
+</body>
+</html>

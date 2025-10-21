@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Date of Birth</title>
+  <style>
+    body { background:#ffe4e1; font-family:'Comic Sans MS',sans-serif; text-align:center; margin-top:10%; }
+    input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+    button { padding:10px 20px; border:none; border-radius:8px; background:#ff1493; color:white; font-size:16px; cursor:pointer; margin-left:10px; }
+  </style>
+</head>
+<body>
+  <h2>Hey <span id="displayName"></span> 👋</h2>
+  <p>Please enter ur date of birth 🎂</p>
+  <input type="date" id="dobBox" />
+  <button onclick="nextPage()">Next ➡️</button>
+
+  <script>
+    document.getElementById('displayName').innerText = localStorage.getItem('username') || 'friend';
+    function nextPage() {
+      const dob = document.getElementById('dobBox').value;
+      localStorage.setItem('dob', dob);
+      window.location.href = 'birthday.html';
+    }
+  </script>
+</body>
+</html>

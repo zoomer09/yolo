@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      background: #ff69b4; /* solid pink */
+      font-family: 'Comic Sans MS', sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 40px;
+      color: white;
+      text-shadow: 2px 2px 5px #d63384;
+      margin-top: 10%;
+      position: relative;
+      z-index: 2;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #ff1493;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 30px;
+      position: relative;
+      z-index: 2;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #fff, #ffb6c1);
+      border-radius: 50%;
+      animation: floatUp 6s ease-in infinite;
+      z-index: 1;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0; /* fireworks behind text */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+
+  <!-- 🎶 Music -->
+  <audio id="bdayMusic" loop>
+    <source src="DIVINE - Baazigar feat. Armani White  Prod. by Karan Kanchan  Official Music Video.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>
+    OMG? HOLY COW? ITS 22ND TODAY? 🎈🎉<br>
+    HAPPY BIRTHDAYYYYYYYYYYYYYY ESHA?? 🥳
+  </h1>
+  <button onclick="nextPage()">Next ➡️</button>
+
+  <script>
+    // 🎆 fireworks
+    const canvas = document.getElementById('fireworks'), ctx = canvas.getContext('2d');
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    function random(min, max){ return Math.random() * (max - min) + min; }
+    function firework(){
+      const x = random(0, canvas.width), y = random(0, canvas.height / 2),
+            r = random(2, 4), col = `hsl(${random(0, 360)}, 100%, 60%)`;
+      for(let i=0; i<50; i++){
+        const angle = (Math.PI * 2 * i) / 50, speed = random(1, 5);
+        particles.push({x, y, r, col, dx: Math.cos(angle)*speed, dy: Math.sin(angle)*speed, life: 100});
+      }
+    }
+    let particles = [];
+    function animate(){
+      requestAnimationFrame(animate);
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p,i)=>{
+        p.x += p.dx; p.y += p.dy; p.life--;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.col; ctx.fill();
+        if(p.life <= 0) particles.splice(i,1);
+      });
+      if(Math.random() < 0.05) firework();
+    }
+    animate();
+
+    // 🎈 balloons
+    for(let i=0; i<20; i++){
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      b.style.left = Math.random() * 100 + '%';
+      b.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(b);
+    }
+
+    // 🎶 start music from 00:50
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bdayMusic');
+      audio.currentTime = 50;
+      audio.play().catch(() => {
+        // if autoplay blocked, start when user clicks anywhere
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    });
+
+    function nextPage(){ window.location.href = 'message.html'; }
+  </script>
+</body>
+</html>
